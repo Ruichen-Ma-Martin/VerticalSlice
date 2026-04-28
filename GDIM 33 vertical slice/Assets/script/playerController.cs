@@ -8,14 +8,19 @@ public class playerController : MonoBehaviour
     [SerializeField] private GameObject _hand;
     [SerializeField] private GameObject _bullet;
     [SerializeField] private GameObject _shootPoint;
-    private float _Xscensitivity = 10f;
-    private float _Yscensitivity = 10f;
+    [SerializeField] private Rigidbody2D _rb;  
+    private float _moveSpeed = 5f;
+    private bool _isfaceright = true;
 
-    
+
+
+
     void Update()
     {
         Mouse();
         shoot();
+        movement();
+        jump();
     }
 
     void Mouse()
@@ -37,4 +42,26 @@ public class playerController : MonoBehaviour
         }
     }
     
+    void movement()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        _rb.velocity = new Vector2(horizontalInput * _moveSpeed, _rb.velocity.y);
+        if ( horizontalInput > 0 && !_isfaceright)
+        {
+            _isfaceright = true;
+            Debug.Log("face right");
+        }
+        else if (horizontalInput < 0 && _isfaceright)
+        {
+            _isfaceright = false;
+            Debug.Log("face left");
+        }
+    }
+    void jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _rb.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
+        }
+    }
 }
