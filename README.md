@@ -1,3 +1,4 @@
+
 # GDIM33 Vertical Slice
 ## Milestone 1 Devlog
 I’m using Visual Scripting to handle state transitions in my enemy’s State Machine. First, I created two GameObject variables player and enemy. I then retrieved the Transform components of these two GameObjects, read their position values, and used the Distance node to calculate the distance between them. I compared the calculated distance against a predefined variable, then passed the result into an If node. If the condition evaluates to true, the transition is triggered.
@@ -7,6 +8,7 @@ My State Machine controls three different enemy behaviors Wander, Follow, and At
 All three behaviors (Wander, Follow, and Attack) are implemented using C# methods. When entering each corresponding state, I connect the Update node to the respective method node. Additionally, when entering the Wander state, I connect the Start node to a SetArea method, which randomly sets the enemy’s wander range.
 
 break down Chart
+<img width="1527" height="1080" alt="devlog1" src="https://github.com/user-attachments/assets/6a2e55c2-d6ff-4f49-98e3-c85cbbf51b93" />
 
 
 ## Milestone 2 Devlog
