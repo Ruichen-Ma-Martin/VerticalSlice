@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
+
 
 public class enemyControl : MonoBehaviour
 {
@@ -12,28 +14,37 @@ public class enemyControl : MonoBehaviour
 
     [SerializeField] private Vector2 _areaSize = new Vector2(5f, 5f);
     [SerializeField] private Vector2 _AreaCenter;
+    private float _timer;
+    private float _CDattack = 2f;
+    
+    [SerializeField] private GameObject _attack;
+    private Vector2 _attackR;
+    private Vector2 _attackL;
+    
 
-    void Start()
+    private void Awake()
     {
-        SetArea();
-        
+        _attackR = _attack.transform.localPosition;
+        _attackL = -_attackR;
     }
+
+
     void Update()
     {
-        MoveInRange();
-        //followPlayer();
-        //hitplayer();
+        _timer += Time.deltaTime;
+        
+        
     }
         
 
-    void SetArea()
+    public void SetArea()
     {
         float x = Random.Range(transform.position.x - _areaSize.x / 2, transform.position.x + _areaSize.x / 2);
         _AreaCenter = new Vector2(x,transform.position.y);
         
     }
 
-    void MoveInRange()
+    public void MoveInRange()
     {
 
         
@@ -49,10 +60,10 @@ public class enemyControl : MonoBehaviour
             //Debug.Log("change direction");
             moveDirection = 1f;
         }
-
+        
     }
 
-    void followPlayer()
+    public void followPlayer()
     {
         
         if (player != null)
@@ -62,19 +73,29 @@ public class enemyControl : MonoBehaviour
         }
     }
 
-    void hitplayer()
+    public void hitplayer()
     {
+        _rb.velocity = Vector2.zero;
+        
+        
         if (player != null)
         {
             Vector2 direction = (player.transform.position - transform.position).normalized;
-            if (direction.x > 0f)
+            if (direction.x > 0f && _timer >= _CDattack)
             {
                 Debug.Log("Player hit from right!");
+                _attack.transform.localPosition = _attackR;
+
+                _attack.SetActive(true);
+                _timer = 0f;
             }
-            else if (direction.x < 0f)
+            else if (direction.x < 0f && _timer >= _CDattack)
             {
                 Debug.Log("Player hit from left!");
-
+                
+                _attack.transform.localPosition = _attackL;
+                _attack.SetActive(true);
+                _timer = 0f;
             }
         }
     }
@@ -84,5 +105,12 @@ public class enemyControl : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(_AreaCenter, _areaSize);
         }
-    }
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+        if (collision.gameObject.CompareTag("wall"))
+        {
+            moveDirection *= -1f;
+        }
+        }
+}
 
