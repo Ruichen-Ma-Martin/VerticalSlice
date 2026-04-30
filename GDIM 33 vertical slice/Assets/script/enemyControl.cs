@@ -21,6 +21,8 @@ public class enemyControl : MonoBehaviour
     private Vector2 _attackR;
     private Vector2 _attackL;
     
+    
+    
 
     private void Awake()
     {
@@ -99,6 +101,7 @@ public class enemyControl : MonoBehaviour
             }
         }
     }
+    
 
         void OnDrawGizmosSelected()
         {
@@ -108,6 +111,10 @@ public class enemyControl : MonoBehaviour
         void OnCollisionEnter2D(Collision2D collision)
         {
         if (collision.gameObject.CompareTag("wall"))
+        {
+            moveDirection *= -1f;
+        }
+        if (collision.gameObject.CompareTag("enemy"))
         {
             moveDirection *= -1f;
         }

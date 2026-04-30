@@ -13,7 +13,8 @@ public class bullet : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _rb.AddForce(transform.up * _speed, ForceMode2D.Impulse);
+        //_rb.AddForce(transform.up * _speed, ForceMode2D.Impulse);
+        _rb.velocity = transform.up * _speed;
         Destroy(gameObject,2f);
     }
      
