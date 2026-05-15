@@ -40,6 +40,11 @@ I believe breaking down the development into these task steps has been very help
 
 In Visual Scripting, I call C# methods to implement the enemy state machine. I set up distance detection between the player and the enemy within Visual Scripting. I also wrote custom C# methods to define enemy behaviours in different states, such as patrolling within a range, following the player, and attacking the player. I use Visual Scripting to detect the distance between the player and the enemy. When the distance reaches a specific threshold, the enemy’s state will switch. The enemy’s behaviours in each state are implemented by invoking corresponding C# methods.
 
+<img width="554" height="381" alt="devlog2 1" src="https://github.com/user-attachments/assets/9bee43af-1f6c-407c-9e9f-6c7d0d9c39a3" />
+
+<img width="554" height="231" alt="devlog2 2" src="https://github.com/user-attachments/assets/617752ea-93d0-4057-a079-7ef60b0b0d2d" />
+
+
 ### Question 4
 
 I also used the Animation and Animator Unity system. First, I created animation clips for the enemy, then used the Animator controller to switch between different animation states. Meanwhile, I implemented an Animation Event script logic: the player will only receive damage when the enemy’s attack animation reaches a specific frame, and the enemy cannot switch back to the walk state until its attack animation fully finishes playing.
