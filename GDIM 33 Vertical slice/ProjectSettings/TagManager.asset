@@ -8,6 +8,7 @@ TagManager:
   - bullet
   - wall
   - enemyhitbox
+  - ground
   layers:
   - Default
   - TransparentFX

@@ -7,9 +7,7 @@ public class playerController : MonoBehaviour
 {
     [SerializeField] private GameObject _hand;
     [SerializeField] private GameObject _bullet;
-    [SerializeField] private GameObject _shootPoint;
-    [SerializeField] private GameObject _shootPoint1;
-    [SerializeField] private GameObject _shootPoint2;
+  
     [SerializeField] private Rigidbody2D _rb;  
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _jumpForce = 5f;
@@ -25,6 +23,10 @@ public class playerController : MonoBehaviour
         shoot();
         movement();
         jump();
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameController.instance.player.LevelUp();
+        }
     }
 
     void Mouse()
@@ -42,9 +44,7 @@ public class playerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(_bullet, _shootPoint.transform.position, _shootPoint.transform.rotation);
-            Instantiate(_bullet, _shootPoint1.transform.position, _shootPoint1.transform.rotation);
-            Instantiate(_bullet, _shootPoint2.transform.position, _shootPoint2.transform.rotation);
+            GameController.instance.player.Shoot();
         }
     }
     
