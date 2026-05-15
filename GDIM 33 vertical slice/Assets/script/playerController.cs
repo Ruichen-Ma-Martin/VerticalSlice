@@ -8,9 +8,13 @@ public class playerController : MonoBehaviour
     [SerializeField] private GameObject _hand;
     [SerializeField] private GameObject _bullet;
     [SerializeField] private GameObject _shootPoint;
+    [SerializeField] private GameObject _shootPoint1;
+    [SerializeField] private GameObject _shootPoint2;
     [SerializeField] private Rigidbody2D _rb;  
-    private float _moveSpeed = 5f;
+    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private float _jumpForce = 5f;
     private bool _isfaceright = true;
+    private bool _isGrounded = true;
 
 
 
@@ -36,9 +40,11 @@ public class playerController : MonoBehaviour
     }
     void shoot()
     {
-               if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Instantiate(_bullet, _shootPoint.transform.position, _shootPoint.transform.rotation);
+            Instantiate(_bullet, _shootPoint1.transform.position, _shootPoint1.transform.rotation);
+            Instantiate(_bullet, _shootPoint2.transform.position, _shootPoint2.transform.rotation);
         }
     }
     
@@ -59,9 +65,18 @@ public class playerController : MonoBehaviour
     }
     void jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded == true)
+        {   
+            _isGrounded = false;
+            //_rb.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
+            _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("ground"))
         {
-            _rb.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
+            _isGrounded = true;
         }
     }
 }

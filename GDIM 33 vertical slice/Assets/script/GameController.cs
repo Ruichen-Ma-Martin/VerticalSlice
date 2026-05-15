@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     public bullet bullet;
     public enemyattack enemyattack;
     public player player;
+    public animationEvent animationEvent;
     private void Awake()
     {
         instance = this;

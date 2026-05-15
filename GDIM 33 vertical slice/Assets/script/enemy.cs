@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class enemy : MonoBehaviour
 {
     private float _health = 3f;
+    [SerializeField] private TMP_Text _HPtext;
+        void Update()
+        {
+            _HPtext.text = _health.ToString();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("bullet"))
